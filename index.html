@@ -1,83 +1,125 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>validation task</title>
- <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" href="assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Register Page</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+	
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css?v=1.2.0" rel="stylesheet"/>
 </head>
-<style>
-	body{
-		background-image: url("img/img2.jpg");
-		background-size: cover;
-		background-repeat: no-repeat;
-		overflow-y:show;
-	}
-	.container-fluid {
-		background:yellow;
-		width: 400px;
-		height: 250px;
-		margin-top: 180px;
-		border:4px solid black;
-		border-radius: 20px;
-	}
-h2 {
-	border:3px solid black;
-	color:red;
-}
 
-input {
-	font-size: 16px;
-	width: 300px;
-	height: 30px;
-	border:2px solid black;
-	border-radius: 5px;
-}
+<body class="login-page">
+	<div class="page-header header-filter" style="background-image: url('assets/img/bg12.jpg'); background-size: cover; background-position: top center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+					<div class="card card-signup">
+							<div class="header header-info text-center">
+								<h4 class="card-title">Register</h4>
+							</div>
+							<p class="description text-center">Or Be Classical</p>
+							<div class="card-content">
 
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="material-icons">face</i>
+									</span>
+									<input type="text" class="form-control" id="username" placeholder="User Name..." required>
+								</div>
 
-
-</style>
-
-<body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 text-center">
-				
-				
-				<h2> EMAIL VALIDATION</h2>
-				<br>
-
-		
-<form name="myform">
-<b>Email:&nbsp</b><input type="text" name="email">
-<br>
-<br>
-<b>Name:&nbsp</b><input type="text" name="fname" required>
- <br>
- <br>
-<button type="button" class="btn btn-primary" onclick="validateemail();">SUBMIT</button>
-</div>
-</div>
-</div>
-</form>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="material-icons">email</i>
+									</span>
+									<input type="email" class="form-control" id="email" placeholder="Email..."required>
+								</div><br> 
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="material-icons">face</i>
+									</span>
+									<input type="file" id="file-upload" accept=".gif,.jpg,.jpeg,.png">
+								</div>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="material-icons">lock_outline</i>
+									</span>
+									<input type="password" placeholder="Password..." id="password" class="form-control" required>
+								</div>
+							</div>
+							<div class="footer text-center">
+							<button class="btn btn-info" onclick="register()">Register</button>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
 </body>
 <script>
-function validateemail()
-{
-var x=document.myform.email.value;
-var atposition=x.indexOf("@");
-var dotposition=x.lastIndexOf(".");
-if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){
- alert("Please enter a valid e-mail address");
- return false;
- }
- else
- {
-     alert("email validated");
- }
-}
+	var user=[];
+	var fileContent;
+	 window.addEventListener("load", function() {
+   document.getElementById("file-upload").onchange = function(event) {
+   var reader = new FileReader();
+   reader.readAsDataURL(event.srcElement.files[0]);
+   var me = this;
+   reader.onload = function () {
+        fileContent = reader.result;
+      console.log(fileContent);
+  }
+}});
+
+	function register() {
+		var username = document.getElementById('username').value;
+		var email = document.getElementById('email').value;
+		var password = document.getElementById('password').value;
+		var data = {
+				username:username,
+				email:email,
+				password:password,
+				image:fileContent
+		}
+		console.log(data);
+		user.push(data);
+		console.log(user)
+		localStorage.setItem('userdetail',JSON.stringify(user));
+		if (username=='') {
+			alert('Enter the Name')
+		}
+		else if (email=='') {
+			alert('Enter the Email')
+		}
+		else if (password=='') {
+			alert('Enter the password')
+		}
+		else{
+		alert('REGISTER SUCCESSFULLLY')
+		location.replace("login.html")
+		}
+		
+	}
+
 </script>
+
+	<script src="assets/js/jquery.min.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="assets/js/material.min.js"></script>
+	<script src="assets/js/moment.min.js"></script>
+	<script src="assets/js/nouislider.min.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap-selectpicker.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap-tagsinput.js"></script>
+    <script src="assets/js/jasny-bootstrap.min.js"></script>
+	<script src="assets/js/material-kit.js?v=1.2.0" type="text/javascript"></script>
 </html>
